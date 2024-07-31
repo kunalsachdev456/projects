@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Logger</title>
+    <style>
+        #container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #log,#state{
+            height: 50px;
+            width: 400px;
+            background-color: orange;
+            border: 1px solid black;
+            padding: 10px;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        #state{
+            background-color: rgb(172, 165, 165);
+        }
+        #log-container{
+            display: flex;
+            margin-top: 20px;
+        }
+        button{
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'container'>
+        <h1 style="border: 2px solid black; padding: 20px; border-radius: 10px;">KeyLogger</h1>
+        <div id="btn-container">
+            <button id = 'start-btn'>Start Key Logging</button>
+            <button id = 'stop-btn'>Stop Key Logging</button>
+        </div>
+        <div id = 'log-container'> 
+            <div id="log"></div>
+            <div id="state"></div>
+        </div>
+    </div>
+</body>
+<script src = 'index.js'></script>
+</html>
