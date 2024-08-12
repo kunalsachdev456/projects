@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        .body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .board{
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .cells{
+            height: 100px;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            border: 1px solid black;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+    <script>
+        const board = document.querySelector('.board');
+        const cells = Array.from({ length:9 }).fill(null);
+        let winner = null;
+        let currentPlayer = 'X';
+        function render(){
+            board.innerHTML = '';
+            cells.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.classList.add('cells');
+                cell.textContent = value || '';
+                // This is wrong as this means we are calling the handleCellClick() with
+                // 'index' parameter and then passing the result of that as the eventhandler
+                // cell.addEventListener('click', handleCellClick(index));
+                cell.addEventListener('click',() => handleCellClick(index))
+                board.appendChild(cell);
+            });
+        }
+        function handleCellClick(index){
+            if(winner||cells[index]) return;
+
+            cells[index] = currentPlayer;
+            render();
+
+            winner = checkWinner();
+            if(winner){
+                setTimeout(()=>{
+                    alert(`Player ${winner} Wins!`);
+                    resetGame();
+                },100);
+            }
+            else if(!cells.includes(null)){
+                setTimeout(()=>{
+                    alert(`It's a tie!`);
+                    resetGame();
+                },100);
+            }
+            else{
+                currentPlayer = currentPlayer === 'X'? '0':'X';
+            }
+        }
+        
+
+        function checkWinner(){
+            const winningConditions = [
+                [0,1,2],[3,4,5],[6,7,8], //rows
+                [0,3,6],[1,4,7],[2,5,8], //columns
+                [0,4,8],[2,4,6]
+            ];
+
+            for(let condition of winningConditions){
+                const [a,b,c] = condition;
+                if(cells[a] && cells[b] && cells[c] && 
+                cells [a] === cells[b] && cells[b] === cells[c]){
+                    return cells[a];
+                 }
+            }
+        }
+
+        function resetGame(){
+            currentPlayer = 'X';
+            cells.fill(null);
+            winner = null;
+            render();
+        }
+        render();
+    </script>
+</body>
+</html>
